@@ -1,0 +1,40 @@
+﻿@page "/"
+@using IoT.Admin.Web.Services
+@using IoT.Admin.Web.Models
+@using System.Text.Json
+
+<PageTitle>IoT Admin</PageTitle>
+
+@inject IAdminService AdminService
+@inject WebConfiguration WebConfiguration
+
+<h3>IoT Admin</h3>
+
+<div class="my-3">
+    <h4>Web Configuration</h4>
+    <pre>@JsonSerializer.Serialize(WebConfiguration, new JsonSerializerOptions { WriteIndented = true })</pre>
+</div>
+
+<div class="my-3">
+    <h4>Api Connectivity</h4>
+    <p>@_apiPing</p>
+</div>
+
+<div class="my-3">
+    <h4>Api Configuration</h4>
+    <pre>@JsonSerializer.Serialize(_apiConfiguration, new JsonSerializerOptions { WriteIndented = true })</pre>
+</div>
+
+@code {
+    private string? _apiPing;
+
+    private object? _apiConfiguration;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var apiPing = await AdminService.Ping();
+        _apiPing = apiPing ? "Connected" : "Not Connected!!!";
+        var apiConfiguration = await AdminService.Config();
+        _apiConfiguration = JsonSerializer.Deserialize<object>(apiConfiguration!, new JsonSerializerOptions { WriteIndented = true });
+    }
+}

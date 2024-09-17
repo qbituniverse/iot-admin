@@ -1,0 +1,98 @@
+﻿@page "/gpio-control"
+@using IoT.Admin.Web.Services
+
+<PageTitle>GPIO Control</PageTitle>
+
+@inject IJSRuntime JsRuntime
+@inject IAdminService AdminService
+
+<h3>GPIO Control</h3>
+
+@if (IsTaskRunning)
+{
+    <div class="spinner"></div>
+}
+else
+{
+    <div class="my-3">
+        <button class="btn btn-primary w-100" disabled="@IsTaskRunning" @onclick="OpenPinClick">Open GPIO Pin</button>
+    </div>
+    <div class="my-3">
+        <button class="btn btn-primary w-100" disabled="@IsTaskRunning" @onclick="ClosePinClick">Close GPIO Pin</button>
+    </div>
+    <div class="my-3">
+        <button class="btn btn-primary w-100" disabled="@IsTaskRunning" @onclick="CloseAllPinsClick">Close All GPIO Pins</button>
+    </div>
+}
+
+@code {
+    public bool IsTaskRunning;
+
+    protected async void OpenPinClick(EventArgs args)
+    {
+        var pinNumber = await JsRuntime.InvokeAsync<string>("prompt", "GPIO Pin Number:");
+        if (!int.TryParse(pinNumber, out _))
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Wrong GPIO Pin Number Input");
+            return;
+        }
+
+        IsTaskRunning = true;
+        StateHasChanged();
+
+        if (await AdminService.OpenPin(int.Parse(pinNumber)))
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "GPIO Pin Open Success");
+        }
+        else
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "GPIO Pin Open Failed");
+        }
+
+        IsTaskRunning = false;
+        StateHasChanged();
+    }
+
+    protected async void ClosePinClick(EventArgs args)
+    {
+        var pinNumber = await JsRuntime.InvokeAsync<string>("prompt", "GPIO Pin Number:");
+        if (!int.TryParse(pinNumber, out _))
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Wrong GPIO Pin Number Input");
+            return;
+        }
+
+        IsTaskRunning = true;
+        StateHasChanged();
+
+        if (await AdminService.ClosePin(int.Parse(pinNumber)))
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "GPIO Pin Close Success");
+        }
+        else
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "GPIO Pin Close Failed");
+        }
+
+        IsTaskRunning = false;
+        StateHasChanged();
+    }
+
+    protected async void CloseAllPinsClick(EventArgs args)
+    {
+        IsTaskRunning = true;
+        StateHasChanged();
+
+        if (await AdminService.CloseAllPins())
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "All GPIO Pins Close Success");
+        }
+        else
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "All GPIO Pins Close Failed");
+        }
+
+        IsTaskRunning = false;
+        StateHasChanged();
+    }
+}

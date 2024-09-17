@@ -1,0 +1,59 @@
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    container_name: iot-admin-mysql
+    environment:
+      - TZ=Europe/Warsaw
+      - MYSQL_ROOT_PASSWORD=${DB_PWD}
+      - MYSQL_DATABASE=Admin
+    volumes:
+      - ${DB_DIR}:/var/lib/mysql
+    ports:
+      - 3306:3306
+    tty: true
+    privileged: true
+    networks:
+      - iot-admin
+
+  api:
+    image: qbituniverse/iot-admin-api:latest
+    restart: always
+    container_name: iot-admin-api
+    environment:
+      - TZ=Europe/Warsaw
+      - ApiConfiguration__Environment=Development
+      - ApiConfiguration__LogLevel__Console=Information
+      - ApiConfiguration__LogLevel__Database=Error
+      - ApiConfiguration__Repository__Type=MySql
+      - ApiConfiguration__Repository__MySql__Url=Server=iot-admin-mysql;Port=3306;User ID=root;Password=${DB_PWD};Database=Admin
+      - ApiConfiguration__Modules__Gpio__Type=Mock
+    ports:
+      - 8000:8080
+    tty: true
+    privileged: true
+    networks:
+      - iot-admin
+
+  web:
+    image: qbituniverse/iot-admin-web:latest
+    restart: always
+    container_name: iot-admin-web
+    environment:
+      - TZ=Europe/Warsaw
+      - WebConfiguration__Environment=Development
+      - WebConfiguration__LogLevel__Console=Information
+      - WebConfiguration__LogLevel__Database=Error
+      - WebConfiguration__Repository__Type=MySql
+      - WebConfiguration__Repository__MySql__Url=Server=iot-admin-mysql;Port=3306;User ID=root;Password=${DB_PWD};Database=Admin
+      - WebConfiguration__Api__Url=http://iot-admin-api
+    ports:
+      - 8010:8080
+    tty: true
+    privileged: true
+    networks:
+      - iot-admin
+
+networks:
+  iot-admin:
+    driver: bridge
