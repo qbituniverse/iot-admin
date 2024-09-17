@@ -1,0 +1,90 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "IoT.Admin.Api",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Admin/ping": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Admin/config": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Gpio/open": {
+      "post": {
+        "tags": [
+          "Gpio"
+        ],
+        "parameters": [
+          {
+            "name": "pinNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Gpio/close": {
+      "post": {
+        "tags": [
+          "Gpio"
+        ],
+        "parameters": [
+          {
+            "name": "pinNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Gpio/close-all": {
+      "post": {
+        "tags": [
+          "Gpio"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": { }
+}
