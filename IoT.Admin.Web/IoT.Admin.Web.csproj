@@ -21,4 +21,8 @@
     <PackageReference Include="Serilog.Sinks.SQLite.Microsoft" Version="1.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IoT.Admin.Domain\IoT.Admin.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

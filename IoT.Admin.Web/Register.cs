@@ -12,8 +12,10 @@ internal class Register
 
         services.AddHttpClient("AdminApi",
             httpClient => { httpClient.BaseAddress = new Uri(configuration.Api!.Url!); });
+
         services.AddSingleton<IAdminService, AdminService>();
-        
+        services.AddSingleton<IGpioService, GpioService>();
+
         services.AddSingleton(configuration);
     }
 }
