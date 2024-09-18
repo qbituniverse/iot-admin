@@ -22,6 +22,7 @@ services:
     container_name: iot-admin-api
     environment:
       - TZ=Europe/Warsaw
+      - ASPNETCORE_ENVIRONMENT=Development
       - ApiConfiguration__Environment=Development
       - ApiConfiguration__LogLevel__Console=Information
       - ApiConfiguration__LogLevel__Database=Error
@@ -41,12 +42,13 @@ services:
     container_name: iot-admin-web
     environment:
       - TZ=Europe/Warsaw
+      - ASPNETCORE_ENVIRONMENT=Development
       - WebConfiguration__Environment=Development
       - WebConfiguration__LogLevel__Console=Information
       - WebConfiguration__LogLevel__Database=Error
       - WebConfiguration__Repository__Type=MySql
       - WebConfiguration__Repository__MySql__Url=Server=iot-admin-mysql;Port=3306;User ID=root;Password=${DB_PWD};Database=Admin
-      - WebConfiguration__Api__Url=http://iot-admin-api
+      - WebConfiguration__Api__Url=http://iot-admin-api:8080
     ports:
       - 8010:8080
     tty: true
