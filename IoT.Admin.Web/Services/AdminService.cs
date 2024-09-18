@@ -19,7 +19,7 @@ public class AdminService : IAdminService
     {
         var httpClient = _httpClientFactory.CreateClient("AdminApi");
         var response = await httpClient.GetAsync("api/admin/ping");
-        _logger.LogInformation("GPIO Ping");
+        _logger.LogInformation("Admin Ping");
         return response.StatusCode == HttpStatusCode.OK;
     }
 
@@ -27,31 +27,7 @@ public class AdminService : IAdminService
     {
         var httpClient = _httpClientFactory.CreateClient("AdminApi");
         var response = await httpClient.GetAsync("api/admin/config");
-        _logger.LogInformation("GPIO Config");
+        _logger.LogInformation("Admin Config");
         return await response.Content.ReadAsStringAsync();
-    }
-
-    public async Task<bool> OpenPin(int pinNumber)
-    {
-        var httpClient = _httpClientFactory.CreateClient("AdminApi");
-        var response = await httpClient.PostAsync($"api/gpio/open?pinNumber={pinNumber}", null);
-        _logger.LogInformation($"GPIO pin opened {pinNumber}");
-        return response.StatusCode == HttpStatusCode.OK;
-    }
-
-    public async Task<bool> ClosePin(int pinNumber)
-    {
-        var httpClient = _httpClientFactory.CreateClient("AdminApi");
-        var response = await httpClient.PostAsync($"api/gpio/close?pinNumber={pinNumber}", null);
-        _logger.LogInformation($"GPIO pin closed {pinNumber}");
-        return response.StatusCode == HttpStatusCode.OK;
-    }
-
-    public async Task<bool> CloseAllPins()
-    {
-        var httpClient = _httpClientFactory.CreateClient("AdminApi");
-        var response = await httpClient.PostAsync("api/gpio/close-all", null);
-        _logger.LogInformation("All GPIO pins closed");
-        return response.StatusCode == HttpStatusCode.OK;
     }
 }

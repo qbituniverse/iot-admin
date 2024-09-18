@@ -4,7 +4,7 @@
 <PageTitle>GPIO Control</PageTitle>
 
 @inject IJSRuntime JsRuntime
-@inject IAdminService AdminService
+@inject IGpioService GpioService
 
 <h3>GPIO Control</h3>
 
@@ -40,7 +40,7 @@ else
         IsTaskRunning = true;
         StateHasChanged();
 
-        if (await AdminService.OpenPin(int.Parse(pinNumber)))
+        if (await GpioService.OpenPin(int.Parse(pinNumber)))
         {
             await JsRuntime.InvokeVoidAsync("alert", "GPIO Pin Open Success");
         }
@@ -65,7 +65,7 @@ else
         IsTaskRunning = true;
         StateHasChanged();
 
-        if (await AdminService.ClosePin(int.Parse(pinNumber)))
+        if (await GpioService.ClosePin(int.Parse(pinNumber)))
         {
             await JsRuntime.InvokeVoidAsync("alert", "GPIO Pin Close Success");
         }
@@ -83,7 +83,7 @@ else
         IsTaskRunning = true;
         StateHasChanged();
 
-        if (await AdminService.CloseAllPins())
+        if (await GpioService.CloseAllPins())
         {
             await JsRuntime.InvokeVoidAsync("alert", "All GPIO Pins Close Success");
         }
