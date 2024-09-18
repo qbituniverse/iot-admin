@@ -2,7 +2,7 @@
 
 Admin tools to manage Raspberry Pi deployment. Allows access to control GPIO pins directly on the Pi.
 
-![IoT.Admin](/.docs/IoT.Admin.png)
+![IoT.Admin](/.docs/IoT.Admin.Application.png)
 
 ## Modules
 
