@@ -1,7 +1,7 @@
 services:
   db:
-    image: mysql:latest
     restart: always
+    image: mysql:latest
     container_name: iot-admin-mysql
     environment:
       - TZ=Europe/Warsaw
@@ -11,14 +11,22 @@ services:
       - ${DB_DIR}:/var/lib/mysql
     ports:
       - 3309:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 30s
+      retries: 10
     tty: true
     privileged: true
     networks:
       - iot-admin
 
   api:
-    image: qbituniverse/iot-admin-api:latest
+    depends_on:
+      db:
+        condition: service_healthy
     restart: always
+    image: qbituniverse/iot-admin-api:latest
     container_name: iot-admin-api
     environment:
       - TZ=Europe/Warsaw
@@ -31,14 +39,22 @@ services:
       - ApiConfiguration__Modules__Gpio__Type=Mock
     ports:
       - 8000:8080
+    healthcheck:
+      test: ["CMD", "curl" ,"--fail", "http://localhost:8080/healthz || exit"]
+      interval: 30s
+      timeout: 30s
+      retries: 10
     tty: true
     privileged: true
     networks:
       - iot-admin
 
   web:
-    image: qbituniverse/iot-admin-web:latest
+    depends_on:
+      api:
+        condition: service_healthy
     restart: always
+    image: qbituniverse/iot-admin-web:latest
     container_name: iot-admin-web
     environment:
       - TZ=Europe/Warsaw
@@ -51,6 +67,11 @@ services:
       - WebConfiguration__Api__Url=http://iot-admin-api:8080
     ports:
       - 8005:8080
+    healthcheck:
+      test: ["CMD", "curl" ,"--fail", "http://localhost:8080/healthz || exit"]
+      interval: 30s
+      timeout: 30s
+      retries: 10
     tty: true
     privileged: true
     networks:

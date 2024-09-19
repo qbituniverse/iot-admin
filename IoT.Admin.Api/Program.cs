@@ -65,6 +65,7 @@ app.Logger.LogInformation(@"IoT.Admin.Api Configuration {Config}",
 app.UseExceptionHandler("/error");
 
 app.MapControllers();
+app.MapHealthChecks("/healthz");
 
 if (app.Environment.IsDevelopment())
 {
