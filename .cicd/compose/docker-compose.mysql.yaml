@@ -10,7 +10,7 @@ services:
     volumes:
       - ${DB_DIR}:/var/lib/mysql
     ports:
-      - 3306:3306
+      - 3309:3306
     tty: true
     privileged: true
     networks:
@@ -50,7 +50,7 @@ services:
       - WebConfiguration__Repository__MySql__Url=Server=iot-admin-mysql;Port=3306;User ID=root;Password=${DB_PWD};Database=Admin
       - WebConfiguration__Api__Url=http://iot-admin-api:8080
     ports:
-      - 8010:8080
+      - 8005:8080
     tty: true
     privileged: true
     networks:
