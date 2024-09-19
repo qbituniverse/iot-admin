@@ -37,7 +37,7 @@ services:
     volumes:
       - ${DB_DIR}:/data/db
     ports:
-      - 8010:8080
+      - 8005:8080
     tty: true
     privileged: true
     networks:
@@ -56,8 +56,7 @@ services:
     volumes:
       - ${DB_DIR}:/data/db
     ports:
-      - 3000:3000
-      - 3001:3001
+      - 3009:3000
     tty: true
     privileged: true
     networks:

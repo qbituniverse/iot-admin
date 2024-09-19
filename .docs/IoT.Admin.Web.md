@@ -13,12 +13,12 @@ Web app project used to control the Raspberry Pi GPIO pins through the IoT.Admin
 
 |Host|Environment|Port|
 |-----|-----|-----|
-|**Localhost**|Development|5010|
-||Test|5011|
-||Production|5012|
-|**Docker**|Development|8010|
-||Test|8011|
-||Production|8012|
+|**Localhost**|Development|5005|
+||Test|5006|
+||Production|5007|
+|**Docker**|Development|8005|
+||Test|8006|
+||Production|8007|
 
 ## Configuration
 
@@ -89,10 +89,10 @@ Web app project used to control the Raspberry Pi GPIO pins through the IoT.Admin
         "Url": "PATH_TO_DATABASE\\DATABASE_NAME"
       },
       "MySql": {
-        "Url": "Server=127.0.0.1;Port=3306;User ID=root;Password=YOUR_PASSWORD;Database=DATABASE_NAME"
+        "Url": "Server=127.0.0.1;Port=3309;User ID=root;Password=YOUR_PASSWORD;Database=DATABASE_NAME"
       },
       "MongoDb": {
-        "Url": "mongodb://localhost:27017"
+        "Url": "mongodb://localhost:27009"
       }
     },
     "Api": {
