@@ -47,7 +47,7 @@ switch (webConfiguration.Repository!.Type)
 
     case "MongoDb":
         loggerConfiguration.WriteTo.MongoDBBson(
-            databaseUrl: $"{webConfiguration.Repository.MongoDb!.Url}/Admin",
+            databaseUrl: $"{webConfiguration.Repository.MongoDb!.Url}/IoT-Admin",
             collectionName: "WebLogs",
             restrictedToMinimumLevel: Enum.Parse<LogEventLevel>(webConfiguration.LogLevel!.Database!));
         break;

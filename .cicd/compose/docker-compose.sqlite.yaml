@@ -10,7 +10,7 @@ services:
       - ApiConfiguration__LogLevel__Console=Information
       - ApiConfiguration__LogLevel__Database=Error
       - ApiConfiguration__Repository__Type=SQLite
-      - ApiConfiguration__Repository__SQLite__Url=/data/db/Admin.db
+      - ApiConfiguration__Repository__SQLite__Url=/data/db/IoT-Admin.db
       - ApiConfiguration__Modules__Gpio__Type=Mock
     volumes:
       - ${DB_DIR}:/data/db
@@ -40,7 +40,7 @@ services:
       - WebConfiguration__LogLevel__Console=Information
       - WebConfiguration__LogLevel__Database=Error
       - WebConfiguration__Repository__Type=SQLite
-      - WebConfiguration__Repository__SQLite__Url=/data/db/Admin.db
+      - WebConfiguration__Repository__SQLite__Url=/data/db/IoT-Admin.db
       - WebConfiguration__Api__Url=http://iot-admin-api:8080
     volumes:
       - ${DB_DIR}:/data/db
