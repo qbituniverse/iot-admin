@@ -9,6 +9,7 @@ internal class Register
     {
         services.AddRazorPages();
         services.AddServerSideBlazor();
+        services.AddHealthChecks();
 
         services.AddHttpClient("AdminApi",
             httpClient => { httpClient.BaseAddress = new Uri(configuration.Api!.Url!); });

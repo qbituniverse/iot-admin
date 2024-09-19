@@ -1,7 +1,7 @@
 services:
   api:
-    image: qbituniverse/iot-admin-api:latest
     restart: always
+    image: qbituniverse/iot-admin-api:latest
     container_name: iot-admin-api
     environment:
       - TZ=Europe/Warsaw
@@ -16,13 +16,20 @@ services:
       - ${DB_DIR}:/data/db
     ports:
       - 8000:8080
+    healthcheck:
+      test: ["CMD", "curl" ,"--fail", "http://localhost:8080/healthz || exit"]
+      interval: 30s
+      timeout: 30s
+      retries: 10
     tty: true
     privileged: true
     networks:
       - iot-admin
   
   web:
-    image: qbituniverse/iot-admin-web:latest
+    depends_on:
+      api:
+        condition: service_healthy
     restart: always
     container_name: iot-admin-web
     environment:
@@ -38,14 +45,22 @@ services:
       - ${DB_DIR}:/data/db
     ports:
       - 8005:8080
+    healthcheck:
+      test: ["CMD", "curl" ,"--fail", "http://localhost:8080/healthz || exit"]
+      interval: 30s
+      timeout: 30s
+      retries: 10
     tty: true
     privileged: true
     networks:
       - iot-admin
 
   sqlitebrowser:
-    image: lscr.io/linuxserver/sqlitebrowser:latest
+    depends_on:
+      web:
+        condition: service_healthy
     restart: always
+    image: lscr.io/linuxserver/sqlitebrowser:latest
     container_name: iot-admin-sqlitebrowser
     security_opt:
       - seccomp:unconfined
