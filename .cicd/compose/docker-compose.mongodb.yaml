@@ -9,6 +9,11 @@ services:
       - ${DB_DIR}:/data/db
     ports:
       - 27009:27017
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017 --quiet
+      interval: 30s
+      timeout: 30s
+      retries: 10
     tty: true
     privileged: true
     networks:
@@ -28,7 +33,7 @@ services:
       - ApiConfiguration__LogLevel__Console=Information
       - ApiConfiguration__LogLevel__Database=Error
       - ApiConfiguration__Repository__Type=MongoDb
-      - ApiConfiguration__Repository__MongoDb__Url=Server=mongodb://iot-admin-mongodb:27017
+      - ApiConfiguration__Repository__MongoDb__Url=mongodb://iot-admin-mongodb:27017
       - ApiConfiguration__Modules__Gpio__Type=Mock
     ports:
       - 8000:8080
@@ -56,7 +61,7 @@ services:
       - WebConfiguration__LogLevel__Console=Information
       - WebConfiguration__LogLevel__Database=Error
       - WebConfiguration__Repository__Type=MongoDb
-      - WebConfiguration__Repository__MongoDb__Url=Server=mongodb://iot-admin-mongodb:27017
+      - WebConfiguration__Repository__MongoDb__Url=mongodb://iot-admin-mongodb:27017
       - WebConfiguration__Api__Url=http://iot-admin-api:8080
     ports:
       - 8005:8080
