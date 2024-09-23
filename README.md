@@ -21,7 +21,7 @@ Backend database details, used across all projects in the Admin solution.
 
 |Object|Name|Description|
 |-----|-----|-----|
-|**Database**|Admin|Main database name for the Admin solution.|
+|**Database**|IotAdmin|Main database name for the IoT Admin solution.|
 |**Tables**|ApiLogs|Store the API execution logs.|
 ||WebLogs|Store the Web app execution logs.|
 
