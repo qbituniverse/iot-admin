@@ -14,6 +14,7 @@ http://localhost:3000
 
 # Queries
 SELECT * FROM ApiLogs ORDER BY TimeStamp DESC
+SELECT * FROM WebLogs ORDER BY TimeStamp DESC
 
 # Clean-up
 docker rm -v -f iot-admin-sqlitebrowser
@@ -33,7 +34,8 @@ docker run -d --name iot-admin-mysql --network iot-admin -e TZ=Europe/Warsaw -e 
 docker logs iot-admin-mysql
 
 # Queries
-SELECT * FROM Admin.ApiLogs ORDER BY TimeStamp DESC;
+SELECT * FROM IotAdmin.ApiLogs ORDER BY TimeStamp DESC;
+SELECT * FROM IotAdmin.WebLogs ORDER BY TimeStamp DESC;
 
 # Clean-up
 docker rm -v -f iot-admin-mysql
