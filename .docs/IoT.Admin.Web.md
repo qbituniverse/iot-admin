@@ -7,18 +7,14 @@ Web app project used to control the Raspberry Pi GPIO pins through the IoT.Admin
 |Controller|Endpoint|Details|
 |-----|-----|-----|
 |**GpioControl**|/gpio-control|Send GPIO signals to control the pins.|
-|**DatabaseBrowser**|/database-browser|Access database browser client.|
 
 ## Ports
 
-|Host|Environment|Port|
-|-----|-----|-----|
-|**Localhost**|Development|5005|
-||Test|5006|
-||Production|5007|
-|**Docker**|Development|8005|
-||Test|8006|
-||Production|8007|
+|Environment|Port|
+|-----|-----|
+|Development|8004|
+|Test|8005|
+|Production|8006|
 
 ## Configuration
 
@@ -34,7 +30,7 @@ Web app project used to control the Raspberry Pi GPIO pins through the IoT.Admin
 |Repository.Type|Mock|Defaults to *empty string ("")*. Hard-coded in-memory data, no persistent storage.|
 ||SQLite|SQLite database backend.<br>_NOTE: Works on AMD and ARM architectures_.|
 ||MySql|MySql database backend.<br>_NOTE: Works on AMD and ARM architectures_.|
-||MongoDb|MongoDb database backend.<br>_NOTE: Not available for ARM architecture_.|
+||MongoDb|MongoDb database backend.<br>_NOTE: Works on AMD and ARM architectures (Pi 5 or higher)_.|
 |Repository.SQLite||SQLite details.|
 |Repository.SQLite.Url|Connection string|Connection details to SQLite.|
 |Repository.MySql||MySql details.|
@@ -89,14 +85,14 @@ Web app project used to control the Raspberry Pi GPIO pins through the IoT.Admin
         "Url": "PATH_TO_DATABASE\\DATABASE_NAME"
       },
       "MySql": {
-        "Url": "Server=127.0.0.1;Port=3309;User ID=root;Password=YOUR_PASSWORD;Database=DATABASE_NAME"
+        "Url": "Server=127.0.0.1;Port=3307;User ID=root;Password=YOUR_PASSWORD;Database=DATABASE_NAME"
       },
       "MongoDb": {
-        "Url": "mongodb://localhost:27009"
+        "Url": "mongodb://localhost:27007"
       }
     },
     "Api": {
-      "Url": "http://localhost:5000"
+      "Url": "http://localhost:8001"
     }
   }
 }

@@ -16,14 +16,11 @@ For a complete OpenAPI specification please refer to [IoT.Admin.Api.Spec.json](I
 
 ## Ports
 
-|Host|Environment|Port|
-|-----|-----|-----|
-|**Localhost**|Development|5000|
-||Test|5001|
-||Production|5002|
-|**Docker**|Development|8000|
-||Test|8001|
-||Production|8002|
+|Environment|Port|
+|-----|-----|
+|Development|8001|
+|Test|8002|
+|Production|8003|
 
 ## Configuration
 
@@ -39,7 +36,7 @@ For a complete OpenAPI specification please refer to [IoT.Admin.Api.Spec.json](I
 |Repository.Type|Mock|Defaults to *empty string ("")*. Hard-coded in-memory data, no persistent storage.|
 ||SQLite|SQLite database backend.<br>_NOTE: Works on AMD and ARM architectures_.|
 ||MySql|MySql database backend.<br>_NOTE: Works on AMD and ARM architectures_.|
-||MongoDb|MongoDb database backend.<br>_NOTE: Not available for ARM architecture_.|
+||MongoDb|MongoDb database backend.<br>_NOTE: Works on AMD and ARM architectures (Pi 5 or higher)_.|
 |Repository.SQLite||SQLite details.|
 |Repository.SQLite.Url|Connection string|Connection details to SQLite.|
 |Repository.MySql||MySql details.|
@@ -98,10 +95,10 @@ For a complete OpenAPI specification please refer to [IoT.Admin.Api.Spec.json](I
         "Url": "PATH_TO_DATABASE\\DATABASE_NAME"
       },
       "MySql": {
-        "Url": "Server=127.0.0.1;Port=3309;User ID=root;Password=YOUR_PASSWORD;Database=DATABASE_NAME"
+        "Url": "Server=127.0.0.1;Port=3307;User ID=root;Password=YOUR_PASSWORD;Database=DATABASE_NAME"
       },
       "MongoDb": {
-        "Url": "mongodb://localhost:27009"
+        "Url": "mongodb://localhost:27007"
       }
     },
     "Modules": {
