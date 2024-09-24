@@ -28,6 +28,6 @@ docker buildx rm -f iot-admin-buildx
 
 ### Run Single Conrainer ###
 sudo docker network create iot-admin
-sudo docker run --privileged -d --restart=always --name iot-admin-web -e TZ=Europe/Warsaw -p 8000:8080 qbituniverse/iot-admin-web:latest
+sudo docker run --privileged -d --restart=always --name iot-admin-web -e TZ=Europe/Warsaw -p 8004:8080 qbituniverse/iot-admin-web:latest
 sudo docker rm -fv iot-admin-web
 sudo docker rmi -f qbituniverse/iot-admin-web:latest
