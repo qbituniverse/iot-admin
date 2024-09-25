@@ -1,11 +1,9 @@
 ### Amd 64 ###
-$database = "sqlite"
 $environment = "development"
 
 docker compose version
-docker compose -f .cicd/compose/docker-compose.$database.yaml --env-file .cicd/compose/vars-$environment.env up -d
-docker compose -f .cicd/compose/docker-compose.$database.yaml --env-file .cicd/compose/vars-$environment.env down
-
+docker compose -f .cicd/compose/docker-compose.yaml --env-file .cicd/compose/vars-$environment.env up -d
+docker compose -f .cicd/compose/docker-compose.yaml --env-file .cicd/compose/vars-$environment.env down
 
 
 ### Arm 64 ###
@@ -25,12 +23,11 @@ sudo chmod 777 /home/iot/data/Admin/MongoDb
 
 cd /home/iot/code/Admin
 
-$database = "sqlite"
 $environment = "test"
 
 sudo docker compose version
-sudo docker compose -f docker-compose.$database.yaml --env-file vars-$environment.env up -d
-sudo docker compose -f docker-compose.$database.yaml --env-file vars-$environment.env down
+sudo docker compose -f docker-compose.yaml --env-file vars-$environment.env up -d
+sudo docker compose -f docker-compose.yaml --env-file vars-$environment.env down
 
 # Clean-up
 sudo rm -rf /home/iot/code/Admin
