@@ -23,7 +23,7 @@ sudo chmod 777 /home/iot/data/Admin/MongoDb
 
 cd /home/iot/code/Admin
 
-$environment = "test"
+environment=test
 
 sudo docker compose version
 sudo docker compose -f docker-compose.yaml --env-file vars-$environment.env up -d
